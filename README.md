@@ -99,6 +99,19 @@ places += haiwai  => ["beijing","baoding","hebei","NewYork","London"]
 #移除remove:Array.remove(at:下标)
 
 ```
- - 无序不重复 - Set
- - 无序可重复,但每个值有唯一的键 - 字典(Dicionary)
+ - [x] 无序不重复 - Set
+```shell
+#定义:Set<元素类型>,无法使用类型推断,但可以省略类型
+var cardon : Set = [1,2,3,1] => {2,3,1} 内容打乱,重复值1消掉
+var cardon : Set<Int> => 报错,必须给定值
+
+#用数组字面量创建集合
+let citys : Set = ["beijing","baoding","hebei"]
+
+#元素计数:count,空否:isEmpty (同数组)
+#插入Set.insert(值),移除Set.remove(值)
+#是否包含某元素Set.contains(值)
+#转换为数组Set.sorted()
+```
+ - [x] 无序可重复,但每个值有唯一的键 - 字典(Dicionary)
 批量处理集合中元素,可以使用for in循环
