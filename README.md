@@ -76,20 +76,27 @@ a.append(num)
 ```shell
 #定义Array类型或[类型]
 let array : [Int]
+
 #创建一个有默认值的数组
 array = [Int](repeatElement(3,count:5)) => [3,3,3,3,3]
+
 #创建一个有序范围Int数组,Array(起始值...终止值)
 let array2 = Array[1...5] => [1,2,3,4,5]
+
 #普通创建数组:[值1,值2,值n]
 let places = ["beijing","baoding","hebei"]
+
 #元素计数:count,空否:isEmpty
 places.count => 3
 places.isEmpty => true
+
 #添加元素append,添加同一个类型数组 +=
 places.append("shijiazhuang")
 let haiwai = ["NewYork","London"]
 places += haiwai  => ["beijing","baoding","hebei","NewYork","London"]
+
 #插入insert:Array.insert("值", at: 下标)
+#移除remove:Array.remove(at:下标)
 
 ```
  - 无序不重复 - Set
