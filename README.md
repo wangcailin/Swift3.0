@@ -101,17 +101,52 @@ places += haiwai  => ["beijing","baoding","hebei","NewYork","London"]
 ```
  - [x] 无序不重复 - Set
 ```shell
-#定义:Set<元素类型>,无法使用类型推断,但可以省略类型
-var cardon : Set = [1,2,3,1] => {2,3,1} 内容打乱,重复值1消掉
-var cardon : Set<Int> => 报错,必须给定值
-
-#用数组字面量创建集合
-let citys : Set = ["beijing","baoding","hebei"]
-
-#元素计数:count,空否:isEmpty (同数组)
-#插入Set.insert(值),移除Set.remove(值)
-#是否包含某元素Set.contains(值)
-#转换为数组Set.sorted()
+#定义
 ```
  - [x] 无序可重复,但每个值有唯一的键 - 字典(Dicionary)
+```shell
+#定义:Dicionary<键类型,值类型>或[键类型:值类型]
+let temp = ["hebei":"baoding","zhongguo","beijing"]
+
+#元素计数:count,空否:isEmpty
+#添加或更新:字典变量[键]=值
+```
 批量处理集合中元素,可以使用for in循环
+
+#### 控制流
+用来检查和运算各种条件和逻辑的组合,控制APP的运行流向
+ - 循环:for-in,while
+```shell
+var places = [1,3,5,7]
+for s in place{}
+for i in 1...100{} => 从1遍历到100
+while i < 100{}
+```
+ - if
+ - 早退语句guard else
+ - 退出 break,continue
+ - switch
+#### 函数
+形式:func 函数名(参数1:类型,参数2:类型) -> 返回结果类型 {函数体}
+```shell
+func add(a:Int, b:Int) -> Int{
+  return a+b
+}
+
+#多返回值(使用元组)
+func maxMin() -> (Int, Int){
+  return (Int.min, Int.max)
+}
+```
+> 函数类型
+函数类型:包含参数和返回类型的简写形式,可以像普通变量那样使用,一般用于函数式编程
+形式:(Int, Int) -> Int
+```shell
+func calculate(x:Int, y:Int, method:(Int, Int) -> Int) -> Int{
+  return method(x, y)
+}
+func add(x:Int, y:Int) -> Int{
+  return x + y
+}
+calculate(x:3, y:4, method:add)  =>  7
+```
