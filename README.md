@@ -150,3 +150,144 @@ func add(x:Int, y:Int) -> Int{
 }
 calculate(x:3, y:4, method:add)  =>  7
 ```
+
+## 面向对象
+用生物学的角度把变量和函数有机组织起来,叫面向对象编程
+- 基因:属性和方法(变量和函数)
+- 繁殖:完全克隆和基因交换(继承和变异)
+- 术语:结构体(struct)和类(class),swift3推荐自己定义的对象使用结构体
+
+#### 属性
+属性是一个结构体/类/枚举关联的变量
+ - 实例属性:实例化后才能使用
+```shell
+class 角色 {
+  let id = "20170817"
+  var money = 0
+}
+```
+ - 计算属性:由其他属性计算得出的,由getter和setter组成
+   - getter获取器(必须):描述属性如何计算及返回语句,形式:get{语句和返回}
+   - sette设置器(可选):有新值(newValue)后如何影响其他属性,形式:set{语句}
+```shell
+struct 坐标 {
+  var x = 0, y = 0
+}
+
+enum 移动方式 {
+  case 走
+  case 跑
+  case 骑
+  case 传送
+}
+
+class 法师: 角色 {
+  var 人物坐标 = 坐标()
+  var 人物移动方式 = 移动方式.走
+  var 当前坐标: 坐标 {
+    get {
+      switch 人物移动方式 {
+        case .走:
+          人物坐标.x += 1
+          人物坐标.y += 1
+        case .跑:
+          人物坐标.x += 3
+          人物坐标.y += 3
+        case .骑:
+          人物坐标.x += 10
+          人物坐标.y += 10
+        case .传送:
+          人物坐标.x += 1000
+          人物坐标.y += 1000
+      }
+      return 人物坐标
+    }
+    set {
+      人物坐标 = newValue
+    }
+  }
+}
+var 法师1 = 法师
+法师1.当前坐标  =>  x1, y1
+法师1.人物移动方式 = .跑
+法师1.当前坐标  =>  x4, y4
+法师1.人物移动方式 = .传送
+法师1.当前坐标  =>  x1004, y1004
+
+#计算属性的setter方法,影响其他属性
+法师1.当前坐标 = 坐标(x: 2000, y: 90)
+法师1.人物坐标  =>  x2000, y90
+```
+- 属性监视器:对属性值的变化进行响应
+  - willSet:事前响应,新值newValue
+  - didSet:事后响应,旧值oldValue
+```shell
+class 经验 {
+  var 总经验 = 0 {
+    willSet {
+      print("当前总经验是:\(newValue)!")
+    }
+    didSet {
+      print("增加了\(总经验 - oldSet)点经验!")
+    }
+  }
+}
+var 经验1 = 经验
+经验1.总经验 = 1000  =>  当前经验是1000,增加了1000
+经验1.总经验 = 3000  =>  当前经验是3000,增加了2000
+经验1.总经验 = 8000  =>  当前经验是8000,增加了5000
+```
+#### 类型属性
+属于类型固有的,实例不能调用
+对于类,计算型的类型属性,前面加关键字class可被子类重写override
+```
+class 生命体 {
+  var 遗传方式: String {
+    return "RNA"
+  }
+}
+生命体.遗传方式  =>  不能调用
+
+class 生命体 {
+  static var 遗传方式: String {
+    return "RNA"
+  }
+}
+生命体.遗传方式  =>  RNA
+
+#父类属性覆盖子类
+class Human: 生命体 {
+  var 遗传方式: String {
+    return "DNA"
+  }
+}
+Human.遗传方式  =>  RNA  父类属性覆盖子类
+
+#解决办法
+class 生命体 {
+  class var 遗传方式: String {
+    return "RNA"
+  }
+}
+class Human: 生命体 {
+  override class var 遗传方式: String {
+    return "DNA"
+  }
+}
+Human.遗传方式  =>  DNA
+```
+ - 结构体和枚举,关键字static
+```shell
+struct 逛街 {
+  static let 品牌 = "UNICIO"
+  static let 网站 = "http://tmall.com?cate="
+  var cate = ""
+
+  var shareUrl : String {
+    return 逛街.网站 + cote
+  }
+}
+逛街.品牌  => "UNICIO"
+let 逛淘宝 = 逛街(cate:"seaFood")
+逛淘宝.shareUrl  =>  http://tmall.com?cate=seaFood
+```
