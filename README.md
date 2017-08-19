@@ -291,3 +291,43 @@ struct 逛街 {
 let 逛淘宝 = 逛街(cate:"seaFood")
 逛淘宝.shareUrl  =>  http://tmall.com?cate=seaFood
 ```
+#### 实例方法
+方法是一个类/结构体/枚举关联的函数,分为实例方法和类型方法
+ - 实例方法
+ 定义和使用:与函数相似,self属性:引用实例自身,通常可以不写
+```shell
+enum Monster : Int {
+    case sheep = 10,
+    cat = 50,
+    snak = 100
+}
+
+struct ExpTimes {
+    var open = false
+    var times = 1
+}
+
+class RmbPlayer{
+    var exp = 0
+    var expTimes = ExpTimes()
+    
+    func idle() {
+        exp += 500
+        print("挂机成功1次！总经验为\(exp)")
+    }
+    
+    func kill (monster: Monster, expTimes: Int) {
+        exp += (monster.rawValue * expTimes)
+        
+        print("当前总经验为\(exp)")
+    }
+}
+
+var xiaobo = RmbPlayer()
+xiaobo.idle()  =>  挂机成功1次！总经验为500
+xiaobo.kill(monster:Monster.cat, expTimes: 2)  =>  当前总经验为600
+
+var dabo = RmbPlayer()
+dabo.idle()  =>  挂机成功1次！总经验为500
+
+```
